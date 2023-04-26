@@ -112,20 +112,39 @@ def val(digit):
       return 11  # 11 is a dash
 
    
-arg = 'ip route list'
-waiting = True
-while waiting:
-   p = subprocess.Popen(arg, shell = True, stdout = subprocess.PIPE)
-   data = p.communicate()
-   split_data = data[0].split()
-   length = len(split_data)
-   print('Length', length)
-   if length > 8:
-      waiting = False
-   else:
-      scroll("0.0.0.0", 2)
-ipaddr = split_data[split_data.index('src')+1]
+#arg = 'ip route list'
+#waiting = True
+#while waiting:
+#    p = subprocess.Popen(arg, shell = True, stdout = subprocess.PIPE)
+#    data = p.communicate()
+#    split_data = data[0].split()
+#    length = len(split_data)
+#    print('Length', length)
+#    if length > 8:
+#       waiting = False
+#    else:
+#       scroll("0.0.0.0", 2)
+# ipaddr = split_data[split_data.index('src')+1]
+#print(ipaddr)
+
+
+import socket
+def get_ip():
+   s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+   s.settimeout(0)
+   try:
+      # doesn't even have to be reachable
+      s.connect(('10.254.254.254', 1))
+      IP = s.getsockname()[0]
+   except Exception:
+      IP = '127.0.0.1'
+   finally:
+      s.close()
+   return IP
+ipaddr=get_ip()
 print(ipaddr)
+
+
 #parts = ipaddr.split('.')
 #print parts[0]
 #print parts[1]
