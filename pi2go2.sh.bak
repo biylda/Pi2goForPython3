@@ -1,0 +1,28 @@
+if [ ! -d ~/pi2go2 ]; then
+  mkdir ~/pi2go2
+fi
+if [ ! -d ~/.config/autostart ]; then
+  mkdir ~/.config/autostart
+fi
+cd ~/.config/autostart
+echo Creating IP Display autostart
+wget -q http://4tronix.co.uk/pi2go2/ipd.desktop -O ipd.desktop
+cd ~/pi2go2
+wget -q http://4tronix.co.uk/pi2go2/ipd03.py -O ipd03.py
+echo Copying Pi2Go Library Module
+wget -q http://4tronix.co.uk/pi2go2/pi2go2.py -O pi2go2.py
+echo Copying Test Files
+wget -q http://4tronix.co.uk/pi2go2/adc.py -O adc.py
+wget -q http://4tronix.co.uk/pi2go2/sonarTest.py -O sonarTest.py
+wget -q http://4tronix.co.uk/pi2go2/avoider.py -O avoider.py
+wget -q http://4tronix.co.uk/pi2go2/ledTest.py -O ledTest.py
+wget -q http://4tronix.co.uk/pi2go2/motorTest.py -O motorTest.py
+wget -q http://4tronix.co.uk/pi2go2/stepTest.py -O stepTest.py
+wget -q http://4tronix.co.uk/pi2go2/lineTest.py -O lineTest.py
+wget -q http://4tronix.co.uk/pi2go2/lineFollower.py -O lineFollower.py
+wget -q http://4tronix.co.uk/pi2go2/rainbow.py -O rainbow.py
+
+echo Pi2Go Mk2 Files Copied
+
+
+
