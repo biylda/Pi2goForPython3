@@ -127,7 +127,7 @@ def val(digit):
 # ipaddr = split_data[split_data.index('src')+1]
 #print(ipaddr)
 
-
+# This returns a single IP which is the primary (the one with a default route).
 import socket
 def get_ip():
    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -141,10 +141,9 @@ def get_ip():
    finally:
       s.close()
    return IP
+
 ipaddr=get_ip()
 print(ipaddr)
-
-
 #parts = ipaddr.split('.')
 #print parts[0]
 #print parts[1]

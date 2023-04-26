@@ -25,3 +25,12 @@ Download the Python3 library module and example software for Pi2Go Mk2 here.
 original python2 files have the extension .bak
 
 
+notes:
+1) Python source code string cannot contain null bytes
+http://stackoverflow.com/questions/31233777/ddg#39087441
+
+For posterity: I had the same problem and fixed it using,
+
+sed -i 's/\x0//g' FILENAME (rpi_ws281x)
+
+2) 
