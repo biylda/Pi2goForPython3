@@ -108,12 +108,12 @@ PGLite = 2
 PG2 = 3
 PGType = PGNone # Set to None until we find out which during init()
 
-# Pins 26, 19 Left Motor
-# Pins 36, 40 Right Motor
-L1 = 26
-L2 = 19
-R1 = 21
-R2 = 16
+# Pins 24, 26 Left Motor
+# Pins 19, 21 Right Motor
+L1 = 7
+L2 = 8
+R1 = 10
+R2 = 9
 # Variables to track movements to prevent sudden forward/reverse current surges. -1 reverse, 0 stop, +1 forward
 lDir = 0
 rDir = 0
@@ -124,17 +124,20 @@ _brightness = 40
 numPixels = 10
 
 # Define obstacle sensors and line sensors
-irFL = 22      # Front Left obstacle sensor
-irFR = 17      # Front Right obstacle sensor
-lineLeft = 23  # Left Line sensor
-lineRight = 27 # Right Line sensor
+irFL = 17      # Front Left obstacle sensor
+irFR = 4       # Front Right obstacle sensor
+irC = 27       # Center obstacle sensor 21/27
+lineLeft = 18  # Left Line sensor
+lineRight = 22 # Right Line sensor
 
 # Define Sonar Pin (same pin for both Ping and Echo)
-sonar0 = 20    # front sonar
-sonar1 = 4     # left side sonar
+sonar0 = 14    # front sonar
 
 # Define pin for switch
-switch = 15
+switch = 23
+
+# Battery monitor sensor pins
+batteryMonitor = 24
 
 # Define Wheel sensor pins
 lSense = 5
@@ -178,6 +181,10 @@ def init(brightness):
     #Set up IR obstacle sensors as inputs
     GPIO.setup(irFL, GPIO.IN) # Left obstacle sensor
     GPIO.setup(irFR, GPIO.IN) # Right obstacle sensor
+    GPIO.setup(irC, GPIO.IN) # Center obstacle sensor
+    
+    #Set up Battery monitor sensors as inputs
+    GPIO.setup(batteryMonitor, GPIO.IN) # Battery monitor sensor
 
     #use pwm for motor outputs
     GPIO.setup(L1, GPIO.OUT)
@@ -438,10 +445,17 @@ def irRight():
         return True
     else:
         return False
+        
+# irCenter(): Returns state of Center IR Obstacle sensor
+def irCenter():
+    if GPIO.input(irC)==0:
+        return True
+    else:
+        return False
 
 # irAll(): Returns true if either of the Obstacle sensors are triggered
 def irAll():
-    if GPIO.input(irFL)==0 or GPIO.input(irFR)==0:
+    if GPIO.input(irFL)==0 or GPIO.input(irFR)==0 or GPIO.input(irC)==0:
         return True
     else:
         return False
@@ -544,6 +558,16 @@ def getSwitch():
     return (val == 0)
 #
 # End of switch functions
+#======================================================================
+
+#======================================================================
+# Battery Monitor Functions
+#
+# getBatteryMonitor(). Returns the voltage of the battery pack as a float
+def getBatteryMonitor():
+    return GPIO.input(batteryMonitor)
+#
+# End of Light Sensor Functions
 #======================================================================
 
 #======================================================================
