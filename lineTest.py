@@ -19,7 +19,7 @@ try:
   while True:
     left = pi2go2.irLeftLine()
     right = pi2go2.irRightLine()
-    print "Left, Right", left, right
+    print("Left: {} Right: {}".format(left, right))
     time.sleep(1)
 
 except KeyboardInterrupt:
